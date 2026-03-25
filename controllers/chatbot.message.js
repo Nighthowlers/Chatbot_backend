@@ -12,7 +12,9 @@ try {
  const user= await User.create({
         sender:"user",
         text
-    })
+    });
+    console.log("Calling OpenAI with:", text);//temp log to check the input text
+
     const client = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
@@ -25,6 +27,7 @@ const aiResponse = await client.chat.completions.create({
 });
 
 const Response = aiResponse.choices[0].message.content;
+console.log("OpenAI response:", Response);
  
 if (!Response) {
   return res.status(500).json({ error: "AI failed" });
