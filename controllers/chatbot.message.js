@@ -16,10 +16,11 @@ try {
     console.log("Calling OpenAI with:", text);//temp log to check the input text
 
     const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1"
 });
 const aiResponse = await client.chat.completions.create({
-  model: "gpt-4o-mini",
+  model: "openai/gpt-3.5-turbo",
   messages: [
     { role: "system", content: "You are a helpful chatbot." },
     { role: "user", content: text }
