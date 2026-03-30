@@ -19,7 +19,7 @@ export const Message = async (req, res) => {
     // Build conversation memory
     const history = await Chat.find()
       .sort({ createdAt: -1 })
-      .limit(6);
+      .limit(4);
 
     // system prompt
     const systemPrompt =
