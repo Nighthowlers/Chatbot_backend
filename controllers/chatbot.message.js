@@ -1,5 +1,5 @@
-import User from "../models/user.model.js";
-import Bot from "../models/bot.model.js";
+
+import Chat from "../models/chat.model.js";
 import { getAIResponse } from "../services/ai.service.js";
 
 export const Message = async (req, res) => {
@@ -11,10 +11,15 @@ export const Message = async (req, res) => {
     }
 
     // Save user message
-    await User.create({ sender: "user", text });
+    await Chat.create({
+      sender: "user",
+      text
+    });
 
     // Build conversation memory
-    const history = await User.find().sort({ createdAt: -1 }).limit(7);
+    const history = await Chat.find()
+      .sort({ createdAt: -1 })
+      .limit(6);
 
     // system prompt
     const systemPrompt =
@@ -26,10 +31,12 @@ export const Message = async (req, res) => {
     
     const messages = [
       { role: "system", content: systemPrompt },
+
       ...history.reverse().map(msg => ({
         role: msg.sender === "user" ? "user" : "assistant",
         content: msg.text
       })),
+
       { role: "user", content: text }
     ];
 
@@ -42,7 +49,10 @@ export const Message = async (req, res) => {
     }
 
     // Save bot response
-    await Bot.create({ sender: "bot", text: Response });
+    await Chat.create({
+      sender: "assistant",
+      text: Response
+    });
 
     return res.status(200).json({
       userMessage: text,
