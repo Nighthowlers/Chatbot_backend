@@ -8,7 +8,7 @@ const client = new OpenAI({
 export const getAIResponse = async (messages) => {
   try {
     const response = await client.chat.completions.create({
-      model: "openai/gpt-3.5-turbo",
+      model: "openai/gpt-4o-mini",
       messages
     });
 
