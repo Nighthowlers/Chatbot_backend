@@ -41,7 +41,11 @@ export const Message = async (req, res) => {
     ];
 
     //  AI call
+    console.time("AI Response");
+
     let Response = await getAIResponse(messages);
+
+    console.timeEnd("AI Response");
 
     // Fallback system (VERY IMPORTANT)
     if (!Response) {
