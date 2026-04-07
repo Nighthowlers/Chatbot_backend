@@ -11,7 +11,7 @@ const app=express();
 
 // Middleware
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://pranjalschatbot.netlify.app'],
+  origin: ['http://localhost:5173', 'https://chatbot-frontend-ashy-nu.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
   credentials: true // Important for cookies/JWT later
 }));
