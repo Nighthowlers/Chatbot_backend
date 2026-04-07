@@ -40,24 +40,10 @@ export const Message = async (req, res) => {
       { role: "user", content: text }
     ];
 
-    //  AI call with timeout
+    //  AI call
     console.time("AI Response");
 
-    // Create a timeout promise
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("AI request timed out")), 35000)
-    );
-
-    let Response;
-    try {
-      Response = await Promise.race([
-        getAIResponse(messages),
-        timeoutPromise
-      ]);
-    } catch (timeoutError) {
-      console.error("AI Timeout:", timeoutError.message);
-      Response = null;
-    }
+    let Response = await getAIResponse(messages);
 
     console.timeEnd("AI Response");
 
