@@ -10,12 +10,13 @@ const app=express();
 
 
 // Middleware
-app.use(express.json());
 app.use(cors({
-  origin: ['http://localhost:5173', 'https://pranjalschatbot.netlify.app/'],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: ['http://localhost:5173', 'https://pranjalschatbot.netlify.app'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE','OPTIONS'],
   credentials: true // Important for cookies/JWT later
 }));
+
+app.use(express.json());
 
 const port = process.env.PORT || 10000;
 
